@@ -25,9 +25,15 @@
 | Saskatchewan | 1905 |
 | Yukon | 1898 |
 
+## Setup
+
+```bash
+npx create-next-app
+```
+
 ## TODO
 
-- publish as static site
-  - with static json assets (named and immutable) 
+- publish as static site (next.js) - vercel
+  - with static json assets (named and immutable)
 - publish data as ipfs
 - publish site with ipfs
