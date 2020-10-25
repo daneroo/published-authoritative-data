@@ -1,0 +1,34 @@
+[
+  {
+    "file": "canada-v1867.json",
+    "digest": "sha1:b2a0570261c0210a04b68d0b5ec26fe82e74e48e"
+  },
+  {
+    "file": "canada-v1870.json",
+    "digest": "sha1:f07f2874c912b94825c69ff0a749ad3469d69c0f"
+  },
+  {
+    "file": "canada-v1871.json",
+    "digest": "sha1:72f76bfbd57317c41a122968a67b75ab54e28f1a"
+  },
+  {
+    "file": "canada-v1873.json",
+    "digest": "sha1:49609678c6f985b0238adb83995b2526d93847d4"
+  },
+  {
+    "file": "canada-v1898.json",
+    "digest": "sha1:a6a378d13ead2105f7dbdf14026e12df75ef8ab9"
+  },
+  {
+    "file": "canada-v1905.json",
+    "digest": "sha1:167dd134ab652164519925caf9e4bb4e6b092ffa"
+  },
+  {
+    "file": "canada-v1949.json",
+    "digest": "sha1:eaa7e3d3ab969e66995fe379e8f21f0abcd841ec"
+  },
+  {
+    "file": "canada-v1999.json",
+    "digest": "sha1:c21e9f1ab613471a139933cff4f64b2d40ce26b8"
+  }
+]

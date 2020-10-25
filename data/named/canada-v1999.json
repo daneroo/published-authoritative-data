@@ -1,0 +1,70 @@
+{
+  "version": 1999,
+  "data": [
+    {
+      "name": "Alberta",
+      "joined": 1905,
+      "type": "province"
+    },
+    {
+      "name": "British Columbia",
+      "joined": 1871,
+      "type": "province"
+    },
+    {
+      "name": "Manitoba",
+      "joined": 1870,
+      "type": "province"
+    },
+    {
+      "name": "New Brunswick",
+      "joined": 1867,
+      "type": "province"
+    },
+    {
+      "name": "Newfoundland",
+      "joined": 1949,
+      "type": "province"
+    },
+    {
+      "name": "Northwest Territories",
+      "joined": 1870,
+      "type": "territory"
+    },
+    {
+      "name": "Nova Scotia",
+      "joined": 1867,
+      "type": "province"
+    },
+    {
+      "name": "Nunavut",
+      "joined": 1999,
+      "type": "territory"
+    },
+    {
+      "name": "Ontario",
+      "joined": 1867,
+      "type": "province"
+    },
+    {
+      "name": "Prince Edward Island",
+      "joined": 1873,
+      "type": "province"
+    },
+    {
+      "name": "Quebec",
+      "joined": 1867,
+      "type": "province"
+    },
+    {
+      "name": "Saskatchewan",
+      "joined": 1905,
+      "type": "province"
+    },
+    {
+      "name": "Yukon",
+      "joined": 1898,
+      "type": "territory"
+    }
+  ]
+}

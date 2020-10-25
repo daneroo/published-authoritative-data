@@ -1,0 +1,25 @@
+{
+  "version": 1867,
+  "data": [
+    {
+      "name": "New Brunswick",
+      "joined": 1867,
+      "type": "province"
+    },
+    {
+      "name": "Nova Scotia",
+      "joined": 1867,
+      "type": "province"
+    },
+    {
+      "name": "Ontario",
+      "joined": 1867,
+      "type": "province"
+    },
+    {
+      "name": "Quebec",
+      "joined": 1867,
+      "type": "province"
+    }
+  ]
+}
