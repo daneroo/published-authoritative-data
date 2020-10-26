@@ -8,7 +8,10 @@
     "start": "next start",
     "test": "npm run lint",
     "lint": "standard",
-    "generate": "node make.js"
+    "generate": "node make.js",
+    "vercel:deploy": "vercel --prod && npm run vercel:clean",
+    "vercel:clean": "vercel rm --safe --yes pad",
+    "vercel:preview": "vercel"
   },
   "dependencies": {
     "next": "9.5.5",
