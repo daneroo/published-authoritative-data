@@ -1,5 +1,10 @@
 # Published Authoritative Data
 
+
+Experiments in publishing versioned authoritative data
+
+Deployed on vercel:<https://pad.v.daneroo.com/>
+
 - Versioned Data ( / Schema )
 - Published as JSON
 - Deployed as:
