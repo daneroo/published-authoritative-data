@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
 
 export function Card ({ versionsUrl = '/data/versions.json' }) {
+  const [mode, setMode] = useState('name')
   const [versions, setVersions] = useState([])
   const [versionIndex, setVersionIndex] = useState(null)
   const [data, setData] = useState({ version: 'Unknown', data: [] })
@@ -12,31 +13,36 @@ export function Card ({ versionsUrl = '/data/versions.json' }) {
     if (!versions.length) return
     const versionIndex = versions.length - 1
     setVersionIndex(versionIndex)
-    const dataUrl = versions[versionIndex].file
-    setData(await getUrl(`/data/named/${dataUrl}`))
   }, [versionsUrl])
 
   useEffect(async () => {
     if (!versions.length) return
-    const dataUrl = versions[versionIndex].file
-    setData(await getUrl(`/data/named/${dataUrl}`))
-  }, [versionIndex])
+    const dataUrl = dataUrlForMode(versions[versionIndex], mode)
+    setData(await getUrl(dataUrl))
+  }, [versionIndex, mode])
 
-  const dataUrl = (versions && versionIndex != null) ? versions[versionIndex].file : ''
   return (
     <>
       <div className={styles.grid}>
-        <VersionBar {...{ versions, versionIndex, setVersionIndex }} />
-        <Table data={data} dataUrl={dataUrl} />
+        <VersionBar {...{ mode, setMode, versions, versionIndex, setVersionIndex }} />
+        <Table data={data} />
         <Json data={data} />
       </div>
     </>
   )
 }
 
-function VersionBar ({ versions, versionIndex, setVersionIndex }) {
+function dataUrlForMode (version, mode) {
+  return `/data/${{ name: 'byName', digest: 'byDigest', cid: 'byCID' }[mode]}/${version[mode]}.json`
+}
+
+function VersionBar ({ mode, setMode, versions, versionIndex, setVersionIndex }) {
   if (!versions || versionIndex === null) return <></>
-  const { version, file, digest } = versions[versionIndex]
+  const modes = ['name', 'digest', 'cid']
+
+  const { version } = versions[versionIndex]
+  const dataUrl = dataUrlForMode(versions[versionIndex], mode)
+
   function set (index) {
     index = Math.max(0, index)
     index = Math.min(index, versions.length - 1)
@@ -61,10 +67,14 @@ function VersionBar ({ versions, versionIndex, setVersionIndex }) {
       >
         <div onClick={() => set(0)} style={mediaButtonStyle}>◀️◀️</div>
         <div onClick={() => set(versionIndex - 1)} style={mediaButtonStyle}>◀️</div>
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: 'center', minWidth: '45ex' }}>
           <div>Version: {version}</div>
-          <div><code>{file}</code></div>
-          <div><code>{digest}</code></div>
+          <div style={{ textAlign: 'center' }}>
+            <a href={dataUrl} target='_blank' rel='noopener noreferrer'>
+              <code>{versions[versionIndex][mode]}</code>
+              <svg width='16px' height='16px' viewBox='0 0 24 24'><g id='external_link' class='icon_svg-stroke' stroke='#666' stroke-width='1.5' fill='none' fill-rule='evenodd' stroke-linecap='round' stroke-linejoin='round'><polyline points='17 13.5 17 19.5 5 19.5 5 7.5 11 7.5' /><path d='M14,4.5 L20,4.5 L20,10.5 M20,4.5 L11,13.5' /></g></svg>
+            </a>
+          </div>
         </div>
         <div onClick={() => set(versionIndex + 1)} style={mediaButtonStyle}>▶️</div>
         <div onClick={() => set(versions.length - 1)} style={mediaButtonStyle}>▶️▶️</div>
@@ -79,25 +89,22 @@ function VersionBar ({ versions, versionIndex, setVersionIndex }) {
       }}
       >
         <span>Content Addressing:</span>
-        <span>
-          <input type='radio' name='choice' value='choice-1' id='choice-1' checked />
-          <label for='choice-1'>by Name</label>
-        </span>
-        <span>
-          <input type='radio' name='choice' value='choice-2' id='choice-2' />
-          <label for='choice-2'>by Digest</label>
-        </span>
-        <span>
-          <input type='radio' disabled name='choice' value='choice-2' id='choice-2' />
-          <label for='choice-2' style={{ textDecoration: 'line-through' }}>by CID (IPFS)</label>
-        </span>
+        {modes.map(m => {
+          return (
+            <span key={m}>
+              <input type='radio' name='mode' value={m} id={`choice-${m}`} onChange={() => setMode(m)} checked={mode === m} />
+              <label htmlFor='choice-1'>by <span style={{ textTransform: 'capitalize' }}>{m}</span></label>
+            </span>
+
+          )
+        })}
       </div>
     </div>
 
   )
 }
 
-function Table ({ data, dataUrl = '' }) {
+function Table ({ data }) {
   const { data: provinces } = data
   return (
     <div className={styles.card}>
@@ -111,10 +118,10 @@ function Table ({ data, dataUrl = '' }) {
         {provinces.map(({ name, joined, type }) => {
           const star = (type === 'territory') ? '*' : ''
           return (
-            <>
+            <React.Fragment key={name}>
               <div>{name}{star}</div>
               <div>{joined}</div>
-            </>
+            </React.Fragment>
           )
         })}
       </div>
