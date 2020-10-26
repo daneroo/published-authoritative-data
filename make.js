@@ -11,20 +11,23 @@ async function make () {
     return acc
   }, {})).sort().map(strYear => Number(strYear))
 
-  await mkdirp(`${dataDir}/named`)
-  await mkdirp(`${dataDir}/immutable`)
-  // console.log(JSON.stringify(uniqueSortedJoinDates, null, 2))
+  await mkdirp(`${dataDir}/byName`)
+  await mkdirp(`${dataDir}/byDigest`)
+  await mkdirp(`${dataDir}/byCID`)
+
   const versions = await Promise.all(uniqueSortedJoinDates.map(async version => {
     const data = historical.filter(({ joined }) => joined <= version)
-    const file = `canada-v${version}.json`
+    const name = `canada-v${version}`
     const content = JSON.stringify({ version, data }, null, 2)
     const digest = hexDigest(content)
+    const cid = `Qm${digest.replace(/.*-/, '')}`
 
     // side effect: write out the versioned file
-    await writeJSON(`${dataDir}/named/${file}`, content)
-    await writeJSON(`${dataDir}/immutable/${digest}.json`, content)
+    await writeJSON(`${dataDir}/byName/${name}.json`, content)
+    await writeJSON(`${dataDir}/byDigest/${digest}.json`, content)
+    await writeJSON(`${dataDir}/byCID/${cid}.json`, content)
 
-    return { version, file, digest }
+    return { version, name, digest, cid }
   }))
   await writeJSON(`${dataDir}/versions.json`, JSON.stringify(versions, null, 2))
 }
@@ -39,7 +42,7 @@ async function writeJSON (fname, content) {
 function hexDigest (content) {
   const shasum = crypto.createHash('sha1')
   shasum.update(content)
-  return 'sha1:' + shasum.digest('hex')
+  return 'sha1-' + shasum.digest('hex')
 }
 
 async function mkdirp (dirname) {
