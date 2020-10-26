@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "npm run lint",
+    "lint": "standard",
+    "generate": "node make.js"
   },
   "dependencies": {
     "next": "9.5.5",

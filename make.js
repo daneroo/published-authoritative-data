@@ -2,7 +2,8 @@
 const fs = require('fs').promises
 const crypto = require('crypto')
 
-const historical = require('./data/historical.json')
+const dataDir = './public/data'
+const historical = require(`${dataDir}/historical.json`)
 
 async function make () {
   const uniqueSortedJoinDates = Object.keys(historical.reduce((acc, { name, joined }) => {
@@ -10,9 +11,9 @@ async function make () {
     return acc
   }, {})).sort().map(strYear => Number(strYear))
 
-  await mkdirp('./data/named')
-  await mkdirp('./data/immutable')
-  console.log(JSON.stringify(uniqueSortedJoinDates, null, 2))
+  await mkdirp(`${dataDir}/named`)
+  await mkdirp(`${dataDir}/immutable`)
+  // console.log(JSON.stringify(uniqueSortedJoinDates, null, 2))
   const versions = await Promise.all(uniqueSortedJoinDates.map(async version => {
     const data = historical.filter(({ joined }) => joined <= version)
     const file = `canada-v${version}.json`
@@ -20,12 +21,12 @@ async function make () {
     const digest = hexDigest(content)
 
     // side effect: write out the versioned file
-    await writeJSON(`./data/named/${file}`, content)
-    await writeJSON(`./data/immutable/${digest}.json`, content)
+    await writeJSON(`${dataDir}/named/${file}`, content)
+    await writeJSON(`${dataDir}/immutable/${digest}.json`, content)
 
-    return { file, digest }
+    return { version, file, digest }
   }))
-  await writeJSON('./data/versions.json', JSON.stringify(versions, null, 2))
+  await writeJSON(`${dataDir}/versions.json`, JSON.stringify(versions, null, 2))
 }
 
 make()

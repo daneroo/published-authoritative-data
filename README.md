@@ -25,6 +25,14 @@
 | Saskatchewan | 1905 |
 | Yukon | 1898 |
 
+## Usage
+
+To regenerate all data in `./public/data/{named|immutable}` from `./data/historical.json`:
+
+```bash
+npm run generate
+```
+
 ## Setup
 
 ```bash
