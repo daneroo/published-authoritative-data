@@ -1,9 +1,9 @@
 # Published Authoritative Data
 
-
 Experiments in publishing versioned authoritative data
 
 Deployed on vercel:<https://pad.v.daneroo.com/>
+And in IPFS: <https://bafybeiczfte3x3ejmlltewsc72zhp3zv5jajtcm6wivdix2g5vfk3ogc54.ipfs.cf-ipfs.com/>
 
 - Versioned Data ( / Schema )
 - Published as JSON
@@ -36,6 +36,19 @@ To regenerate all data in `./public/data/{named|immutable}` from `./data/histori
 
 ```bash
 npm run generate
+```
+
+for ipfs:
+
+```bash
+next build
+next export
+ipfs add -r out
+...
+added QmULkc4oFK4MSbZ1xmnpWA9eNKxx7TZE1ARNKdoX1btCSa out
+# convert with inspector to cidv1 https://cid.ipfs.io/#QmULkc4oFK4MSbZ1xmnpWA9eNKxx7TZE1ARNKdoX1btCSa
+bafybeiczfte3x3ejmlltewsc72zhp3zv5jajtcm6wivdix2g5vfk3ogc54
+# then <cidv1>.ipfs.cf-ipfs.com
 ```
 
 ## Setup
