@@ -2,6 +2,8 @@
 
 Experiments in publishing versioned authoritative data
 
+*Note:*: 2025-01-26 redeploying on vercel to upgrade to node 22.x - project settings, by adding NODE_OPTIONS='--openssl-legacy-provider' to build command(s) in package.json
+
 Deployed on vercel:<https://pad.v.daneroo.com/>
 And in IPFS: <https://bafybeiczfte3x3ejmlltewsc72zhp3zv5jajtcm6wivdix2g5vfk3ogc54.ipfs.cf-ipfs.com/>
 
