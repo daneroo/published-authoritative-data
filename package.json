@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "NODE_OPTIONS='--openssl-legacy-provider' next dev",
+    "build": "npm install --legacy-peer-deps && NODE_OPTIONS='--openssl-legacy-provider' next build",
+    "start": "NODE_OPTIONS='--openssl-legacy-provider' next start",
     "test": "npm run lint",
     "lint": "standard",
     "generate": "node make.js",
